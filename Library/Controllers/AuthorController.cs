@@ -41,7 +41,7 @@ namespace Library.Controllers
     public ActionResult Details(int id)
     {
       var thisAuthor = _db.Authors
-        .Include(author => author.Books)
+        .Include(author => author.JoinEntries)
         .ThenInclude(join => join.Book)
         .FirstOrDefault(author => author.AuthorId == id);
       return View(thisAuthor);
@@ -77,8 +77,8 @@ namespace Library.Controllers
     [HttpPost]
     public ActionResult DeleteBook(int joinId, int authorId)
     {
-      var joinEntry = _db.BookAuthor.FirstOrDefault(entry => entry.BookAuthorId == joinId);
-      _db.BookAuthor.Remove(joinEntry);
+      var joinEntry = _db.AuthorBookCatalog.FirstOrDefault(entry => entry.AuthorBookCatalogId == joinId);
+      _db.AuthorBookCatalog.Remove(joinEntry);
       _db.SaveChanges();
       return RedirectToAction("Details", new { id = authorId });
     }
@@ -93,7 +93,7 @@ namespace Library.Controllers
     {
       if (BookId != 0)
       {
-        _db.BookAuthor.Add(new BookAuthor() { BookId = BookId, AuthorId = author.AuthorId });
+        _db.AuthorBookCatalog.Add(new AuthorBookCatalog() { BookId = BookId, AuthorId = author.AuthorId });
       }
       _db.SaveChanges();
       return RedirectToAction("Details", new { id = author.AuthorId });

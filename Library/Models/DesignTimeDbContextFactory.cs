@@ -17,7 +17,7 @@ namespace Library.Models
       var builder = new DbContextOptionsBuilder<LibraryContext>();
       var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-      // builder.UseMySql(connectionString);
+      builder.UseMySql(connectionString);
 
       return new LibraryContext(builder.Options);
     }

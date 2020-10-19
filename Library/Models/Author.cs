@@ -6,13 +6,11 @@ namespace Library.Models
   {
     public Author()
     {
-      this.Catalogs = new HashSet<BookCatalog>();
-      this.Books = new HashSet<BookCatalog>();
+      this.JoinEntries = new HashSet<AuthorBookCatalog>();
     }
     public int AuthorId { get; set; }
     public string AuthorName { get; set; }
 
-    public virtual ICollection<BookCatalog> Catalogs { get; set; }
-    public virtual ICollection<BookCatalog> Books { get; set; }
+    public virtual ICollection<AuthorBookCatalog> JoinEntries { get; set; }
   }
 }

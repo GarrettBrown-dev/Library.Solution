@@ -46,7 +46,7 @@ namespace Library.Controllers
       _db.Books.Add(book);
       if (CatalogId != 0)
       {
-        _db.BookCatalog.Add(new BookCatalog() { CatalogId = CatalogId, BookId = book.BookId });
+        _db.AuthorBookCatalog.Add(new AuthorBookCatalog() { CatalogId = CatalogId, BookId = book.BookId });
       }
       _db.SaveChanges();
       return RedirectToAction("Index");
@@ -54,7 +54,7 @@ namespace Library.Controllers
     public ActionResult Details(int id)
     {
       var thisBook = _db.Books
-          .Include(book => book.Catalogs)
+          .Include(book => book.JoinEntries)
           .ThenInclude(join => join.Catalog)
           .FirstOrDefault(book => book.BookId == id);
       return View(thisBook);
@@ -72,7 +72,7 @@ namespace Library.Controllers
     {
       if (CatalogId != 0)
       {
-        _db.BookCatalog.Add(new BookCatalog() { CatalogId = CatalogId, BookId = book.BookId });
+        _db.AuthorBookCatalog.Add(new AuthorBookCatalog() { CatalogId = CatalogId, BookId = book.BookId });
       }
       _db.Entry(book).State = EntityState.Modified;
       _db.SaveChanges();
@@ -104,7 +104,7 @@ namespace Library.Controllers
     {
       if (CatalogId != 0)
       {
-        _db.BookCatalog.Add(new BookCatalog() { CatalogId = CatalogId, BookId = book.BookId });
+        _db.AuthorBookCatalog.Add(new AuthorBookCatalog() { CatalogId = CatalogId, BookId = book.BookId });
       }
       _db.SaveChanges();
       return RedirectToAction("Index");
@@ -112,8 +112,8 @@ namespace Library.Controllers
     [HttpPost]
     public ActionResult DeleteCategory(int joinId)
     {
-      var joinEntry = _db.BookCatalog.FirstOrDefault(entry => entry.BookCatalogId == joinId);
-      _db.BookCatalog.Remove(joinEntry);
+      var joinEntry = _db.AuthorBookCatalog.FirstOrDefault(entry => entry.AuthorBookCatalogId == joinId);
+      _db.AuthorBookCatalog.Remove(joinEntry);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
