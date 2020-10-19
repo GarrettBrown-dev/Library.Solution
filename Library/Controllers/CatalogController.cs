@@ -37,9 +37,9 @@ namespace Library.Controllers
     public ActionResult Details(int id)
     {
       var thisCatalog = _db.Catalogs
-          .Include(catalog => catalog.Books)
-          .ThenInclude(join => join.Book)
-          .FirstOrDefault(catalog => catalog.CatalogId == id);
+        .Include(catalog => catalog.Books)
+        .ThenInclude(join => join.Book)
+        .FirstOrDefault(catalog => catalog.CatalogId == id);
       return View(thisCatalog);
     }
 
