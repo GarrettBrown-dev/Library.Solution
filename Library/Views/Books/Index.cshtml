@@ -5,14 +5,14 @@
 @using Library.Models;
 @model IEnumerable<Library.Models.Book>
 
-<h1>Books for @User.Identity.Name</h1>
+<h1>Your books:</h1>
 
 @if (Model.Any())
 {
   <ul>
     @foreach (Book book in Model)
     {
-      <li>@Html.ActionLink($"{book.BookName}", "ID", new { id = book.BookId })</li>
+      <li>@Html.ActionLink($"{book.BookName}", "Details", new { id = book.BookId })</li>
     }
   </ul>
 }
