@@ -1,0 +1,15 @@
+@{
+  Layout = "_Layout";
+}
+@model Library.Models.Catalog
+
+<br>
+<h4>Add a new Catalog</h4>
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(model => model.CatalogName)
+  @Html.TextBoxFor(model => model.CatalogName)
+
+  <input type="submit" value="Add new Catalog" />
+}
+<h5>@Html.ActionLink("Show all catalogs", "Index")</h5>

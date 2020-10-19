@@ -1,3 +1,16 @@
 @{
   Layout = "_Layout";
 }
+@using Library.Models
+@model Library.Models.Book
+
+<h2>Book Details</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.BookName): @Html.DisplayFor(model => model.BookName)</h3>
+
+<p>This book is registered in the catalog as @Model.BookName and there are currently @Model.BookCount in circulation.
+</p>
+
+<p>@Html.ActionLink("Back to list", "Index")</p>
+<p>@Html.ActionLink("Edit Item", "Edit", new { id = Model.BookId })</p>
+<p>@Html.ActionLink("Delete Item", "Delete", new { id = Model.BookId })</p>

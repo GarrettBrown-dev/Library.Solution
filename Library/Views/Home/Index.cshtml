@@ -1,10 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-
-    <p>@Html.ActionLink("Create an account", "Index", "Account")</p>
-</div>
+<h1>Welcome to the To the {NAME TO BE INSERTED LATER BECAUSE I LACK CREATIVITY AT THE MOMENT} Library!</h1>
+<p>@Html.ActionLink("See all books", "Index", "Books")</p>
+<p>@Html.ActionLink("See all catalogs", "Index", "Catalogs")</p>
+<p>@Html.ActionLink("See all authors", "Index", "Authors")</p>
+<p>@Html.ActionLink("Home", "Index", "Home")</p>
+<p>@Html.ActionLink("Create an account", "Index", "Account")</p>

@@ -1,0 +1,16 @@
+@{
+  Layout = "_Layout";
+}
+@using Library.Models
+@model Library.Models.Catalog
+
+<h2>Catalog Details</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.CatalogName): @Html.DisplayFor(model => model.CatalogName)</h3>
+
+<p>This catalog is registered in the catalog as @Model.CatalogName.
+</p>
+
+<p>@Html.ActionLink("Back to list", "Index")</p>
+<p>@Html.ActionLink("Edit Item", "Edit", new { id = Model.CatalogId })</p>
+<p>@Html.ActionLink("Delete Item", "Delete", new { id = Model.CatalogId })</p>

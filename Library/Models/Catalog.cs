@@ -10,6 +10,7 @@ namespace Library.Models
     }
     public int CatalogId { get; set; }
     public string CatalogName { get; set; }
+    public int CatalogCount { get; set; }
     public virtual ICollection<AuthorBookCatalog> JoinEntries { get; set; }
   }
 }
