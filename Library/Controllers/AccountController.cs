@@ -3,25 +3,34 @@ using Microsoft.AspNetCore.Identity;
 using Library.Models;
 using System.Threading.Tasks;
 using Library.ViewModels;
+using System.Security.Claims;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library.Controllers
 {
   public class AccountController : Controller
   {
     private readonly LibraryContext _db;
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly UserManager<Patron> _userManager;
+    private readonly SignInManager<Patron> _signInManager;
 
-    public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, LibraryContext db)
+    public AccountController(UserManager<Patron> userManager, SignInManager<Patron> signInManager, LibraryContext db)
     {
       _userManager = userManager;
       _signInManager = signInManager;
       _db = db;
     }
 
-    public ActionResult Index()
+    public async Task<ActionResult> Index()
     {
-      return View();
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      var userCheckedOutBooks = _db.Checkouts
+      .Include(bookCopy => bookCopy.BookCopy)
+      .Where(entry => entry.Patron.Id == currentUser.Id).ToList();
+      return View(userCheckedOutBooks);
     }
 
     public IActionResult Register()
@@ -32,7 +41,7 @@ namespace Library.Controllers
     [HttpPost]
     public async Task<ActionResult> Register(RegisterViewModel model)
     {
-      var user = new ApplicationUser { UserName = model.Email };
+      var user = new Patron { UserName = model.Email };
       IdentityResult result = await _userManager.CreateAsync(user, model.Password);
       if (result.Succeeded)
       {
@@ -67,5 +76,21 @@ namespace Library.Controllers
       await _signInManager.SignOutAsync();
       return RedirectToAction("Index");
     }
+
+    public ActionResult CheckBook()
+    {
+      return View();
+    }
+    // [HttpPost]
+    // public ActionResult CheckBook(Patron patron, int BookCopyId)
+    // {
+    //   if (BookCopyId != 0)
+    //   {
+    //     _db.Checkouts.Add(new Checkout() { BookCopyId = BookCopyId, PatronId = patron.PatronId });
+    //   }
+    //   _db.SaveChanges();
+    //   return RedirectToAction("Index");
+    // }
   }
 }
+

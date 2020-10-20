@@ -2,7 +2,7 @@
 
 #### _An app to keep track of the library's transactions of all sorts. Created 10/19/2020_
 
-#### By _**Garrett Dean Brown** & **Jeff Dinsmore**_
+#### By _**Garrett Dean Brown** , **Jeff Dinsmore**_ & **William Donovan-Sied**
 
 ## Description
 
@@ -88,7 +88,7 @@ _Feel free to email me with any questions, comments, or reports!: gman9mm@live.c
 
 ### License
 
-_Copyright (c) 2020 **_{Garrett Brown}_** & **_{Jeff Dinsmore}_**
+_Copyright (c) 2020 **_{Garrett Brown}_** , **_{Jeff Dinsmore}_** & **_{William Donovan-Sied}_**
 _Licensed under MIT_
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

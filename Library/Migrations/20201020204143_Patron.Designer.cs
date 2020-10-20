@@ -3,14 +3,16 @@ using System;
 using Library.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Library.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20201020204143_Patron")]
+    partial class Patron
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,13 +82,9 @@ namespace Library.Migrations
 
                     b.Property<int>("BookId");
 
-                    b.Property<string>("PatronId");
-
                     b.HasKey("BookCopyId");
 
                     b.HasIndex("BookId");
-
-                    b.HasIndex("PatronId");
 
                     b.ToTable("BookCopies");
                 });
@@ -105,34 +103,12 @@ namespace Library.Migrations
                     b.ToTable("Catalogs");
                 });
 
-            modelBuilder.Entity("Library.Models.Checkout", b =>
-                {
-                    b.Property<int>("CheckoutId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("BookCopyId");
-
-                    b.Property<int>("PatronId");
-
-                    b.Property<string>("PatronId1");
-
-                    b.HasKey("CheckoutId");
-
-                    b.HasIndex("BookCopyId");
-
-                    b.HasIndex("PatronId1");
-
-                    b.ToTable("Checkouts");
-                });
-
             modelBuilder.Entity("Library.Models.Patron", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
-
-                    b.Property<int>("BookCopyId");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -153,8 +129,6 @@ namespace Library.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash");
-
-                    b.Property<int>("PatronId");
 
                     b.Property<string>("PhoneNumber");
 
@@ -321,22 +295,6 @@ namespace Library.Migrations
                         .WithMany("BookCopies")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Library.Models.Patron")
-                        .WithMany("Checkouts")
-                        .HasForeignKey("PatronId");
-                });
-
-            modelBuilder.Entity("Library.Models.Checkout", b =>
-                {
-                    b.HasOne("Library.Models.BookCopy", "BookCopy")
-                        .WithMany()
-                        .HasForeignKey("BookCopyId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Library.Models.Patron", "Patron")
-                        .WithMany()
-                        .HasForeignKey("PatronId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

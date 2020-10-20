@@ -12,5 +12,8 @@
 </p>
 
 <p>@Html.ActionLink("Back to list", "Index")</p>
-<p>@Html.ActionLink("Edit Item", "Edit", new { id = Model.CatalogId })</p>
-<p>@Html.ActionLink("Delete Item", "Delete", new { id = Model.CatalogId })</p>
+@if (User.Identity.IsAuthenticated)
+{
+  <p>@Html.ActionLink("Edit Item", "Edit", new { id = Model.CatalogId })</p>
+  <p>@Html.ActionLink("Delete Item", "Delete", new { id = Model.CatalogId })</p>
+}

@@ -1,0 +1,17 @@
+@{
+  Layout = "_Layout";
+}
+@model Library.Models.Patron
+
+<h3>Checout a book</h3>
+<br>
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.PatronId)
+
+  @Html.Label("Select Book")
+  @Html.DropDownList("BookCopyId", null, "Please Select", htmlAttributes: new{required = "Please select a Book Copy"})
+
+  <input type="submit" value="Save" class="btn btn-success btn-sm" />
+}
+<br>

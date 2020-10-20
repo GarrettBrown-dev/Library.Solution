@@ -11,8 +11,10 @@
   <p>Hello @User.Identity.Name!</p>
   @using (Html.BeginForm("LogOff", "Account"))
   {
-    <input type="submit" class="btn btn-secondary btn-sm" value="Log out" />
+    <p><input type="submit" class="btn btn-secondary btn-sm" value="Log out" /></p>
   }
+
+  <p>@Html.ActionLink("Checkout Book", "CheckBook", null, null, new { @class = "btn btn-success btn-sm"})</p>
 }
 else
 {

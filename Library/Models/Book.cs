@@ -13,8 +13,7 @@ namespace Library.Models
     public string BookName { get; set; }
     public virtual ICollection<BookCopy> BookCopies { get; set; }
     public virtual ICollection<AuthorBookCatalog> JoinEntries { get; set; }
-    public virtual ApplicationUser User { get; set; }
-
+    public virtual Patron Patron { get; set; }
     public static List<Book> Search(List<Book> allObject, string searchParam)
     {
       List<Book> matches = new List<Book> { };
