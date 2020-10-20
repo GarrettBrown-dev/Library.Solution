@@ -11,19 +11,26 @@ using System.Linq;
 
 namespace Library.Controllers
 {
+  [Authorize]
   public class AuthorsController : Controller
   {
     private readonly LibraryContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public AuthorsController(LibraryContext db)
+    public AuthorsController(UserManager<ApplicationUser> userManager, LibraryContext db)
     {
+      _userManager = userManager;
       _db = db;
     }
 
-    public ActionResult Index()
+    public async Task<ActionResult> Index()
     {
-      List<Author> model = _db.Authors.ToList();
-      return View(model);
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      var userAuthors = _db.Authors.Where(entry => entry.User.Id == currentUser.Id).ToList();
+      return View(userAuthors);
+      // List<Author> model = _db.Authors.ToList();
+      // return View(model);
     }
 
     public ActionResult Create()

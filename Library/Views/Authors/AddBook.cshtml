@@ -1,18 +1,18 @@
 @{
   Layout = "_Layout";
 }
-@model Library.Models.Book
+@model Library.Models.Author
 
-<h3>Add an author to this book: @Html.DisplayFor(model => model.BookName)</h3>
+<h3>Add a book to this author: @Html.DisplayFor(model => model.AuthorName)</h3>
 
 @using (Html.BeginForm())
 {
-  @Html.HiddenFor(model => model.BookId)
+  @Html.HiddenFor(model => model.AuthorId)
 
   @Html.Label("Select Book")
-  @Html.DropDownList("Book Id")
+  @Html.DropDownList("BookId")
 
   <input type="submit" value="Save" class="btn btn-success btn-sm" />
 }
 <br>
-<p>@Html.ActionLink("Cancel", "Details", null, new {id = Model.BookId}, new {@class="btn btn-primary btn-sm"})</p>
+<p>@Html.ActionLink("Cancel", "Details", null, new {id = Model.AuthorId}, new {@class="btn btn-primary btn-sm"})</p>
