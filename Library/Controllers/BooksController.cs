@@ -43,6 +43,7 @@ namespace Library.Controllers
       var thisBook = _db.Books
         .Include(book => book.JoinEntries)
         .ThenInclude(join => join.Author)
+        .Include(book => book.BookCopies)
         .FirstOrDefault(book => book.BookId == id);
       return View(thisBook);
     }
