@@ -23,14 +23,9 @@ namespace Library.Controllers
       _db = db;
     }
 
-    public async Task<ActionResult> Index()
+    public ActionResult Index()
     {
-      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      var currentUser = await _userManager.FindByIdAsync(userId);
-      var userCheckedOutBooks = _db.Checkouts
-      .Include(bookCopy => bookCopy.BookCopy)
-      .Where(entry => entry.Patron.Id == currentUser.Id).ToList();
-      return View(userCheckedOutBooks);
+      return View();
     }
 
     public IActionResult Register()
@@ -94,3 +89,11 @@ namespace Library.Controllers
   }
 }
 
+
+// var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+// var currentUser = await _userManager.FindByIdAsync(userId);
+// var userCheckedOutBooks = _db.Checkouts
+// .Include(bookCopy => bookCopy.BookCopy)
+// .ThenInclude(checkout => checkout.CheckoutId)
+// .Where(entry => entry.Patron.Id == currentUser.Id).ToList();
+// return View(userCheckedOutBooks);
