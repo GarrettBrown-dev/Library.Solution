@@ -11,10 +11,7 @@
   @Html.LabelFor(model => model.BookName)
   @Html.TextBoxFor(model => model.BookName)
 
-  @* @Html.Label("Catalog")
-    @Html.DropDownList("CatalogId") *@
-
-  <input type="submit" value="Add new book" class="btn btn-default" />
+  <input type="submit" value="Add new book" class="btn btn-success btn-sm" />
 }
-<p>@Html.ActionLink("Show all books", "Index")</p>
-<p>@Html.ActionLink("Home", "Index", "Home")</p>
+<br>
+<p>@Html.ActionLink("Cancel", "Index", null, null, new {@class="btn btn-info btn-sm"})</p>

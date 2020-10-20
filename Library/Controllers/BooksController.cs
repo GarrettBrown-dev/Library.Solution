@@ -98,5 +98,19 @@ namespace Library.Controllers
       _db.SaveChanges();
       return RedirectToAction("Details", new { id = book.BookId });
     }
+    [HttpPost]
+    public ActionResult Search(string search)
+    {
+      List<Book> searchList = _db.Books.Include(x => x.JoinEntries).ToList();
+      List<Book> model = Book.Search(searchList, search);
+      return View(model);
+    }
+    [HttpPost]
+    public ActionResult AddCopy(BookCopy bookCopy)
+    {
+      _db.BookCopies.Add(bookCopy);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
   }
 }

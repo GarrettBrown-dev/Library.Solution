@@ -10,6 +10,7 @@
   @Html.LabelFor(model => model.CatalogName)
   @Html.TextBoxFor(model => model.CatalogName)
 
-  <input type="submit" value="Add new Catalog" />
+  <input type="submit" value="Add new Catalog" class="btn btn-success btn-sm" />
 }
-<h5>@Html.ActionLink("Show all catalogs", "Index")</h5>
+<br>
+<p>@Html.ActionLink("Cancel", "Index", null, null, new {@class="btn btn-info btn-sm"})</p>

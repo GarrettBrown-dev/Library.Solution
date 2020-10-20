@@ -5,6 +5,7 @@
 @model IEnumerable<Library.Models.Author>
 
 <br>
+<h1>Items for @User.Identity.Name</h1>
 <h1>Authors</h1>
 
 @if (@Model.Any())
@@ -12,7 +13,7 @@
   <ul>
     @foreach (Author author in Model)
     {
-      <li>@Html.ActionLink($"{author.AuthorName}", "Details", new { id = author.AuthorId })</li>
+      <li>@Html.ActionLink($"{author.AuthorName}", "Details", new { id = author.AuthorId }, new {@class="linkHelper"})</li>
     }
   </ul>
 }
@@ -22,6 +23,5 @@ else
 }
 
 <br>
-<h5>@Html.ActionLink("Add new author", "Create")</h5>
-<h5>@Html.ActionLink("Home", "Index", "Home")</h5>
-<h5>@Html.ActionLink("Look up an author", "Search")</h5>
+<p>@Html.ActionLink("Add new author", "Create", null, null, new {@class="btn btn-success btn-sm"})</p>
+<p>@Html.ActionLink("Look up an author", "Search", null, null, new {@class="btn btn-info btn-sm"})</p>

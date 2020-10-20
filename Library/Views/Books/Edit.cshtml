@@ -15,10 +15,10 @@
   @Html.LabelFor(model => model.BookName)
   @Html.EditorFor(model => model.BookName)
 
-  @Html.Label("Select catalog")
-  @Html.DropDownList("CatalogId")
+  @Html.Label("Select author")
+  @Html.DropDownList("AuthorId")
 
-  <input type="submit" value="Save" />
+  <input type="submit" value="Save" class="btn btn-success btn-sm" />
 }
-
-<p>@Html.ActionLink("Back to list", "Index")</p>
+<br>
+<p>@Html.ActionLink("Cancel", "Details", null, new {id = Model.BookId }, new {@class="btn btn-info btn-sm"})</p>

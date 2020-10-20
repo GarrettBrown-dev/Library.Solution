@@ -14,9 +14,9 @@
 
 @foreach (Catalog catalog in Model)
 {
-  <li>@Html.ActionLink($"{catalog.CatalogName}", "Details", new { id = catalog.CatalogId })</li>
+  <li>@Html.ActionLink($"{catalog.CatalogName}", "Details", new { id = catalog.CatalogId }, new {@class="linkHelper"})
+  </li>
 }
 <br>
-<h5>@Html.ActionLink("Add new catalog", "Create")</h5>
-<h5>@Html.ActionLink("Home", "Index", "Home")</h5>
-<h5>@Html.ActionLink("Look up an catalog", "Search")</h5>
+<p>@Html.ActionLink("Add new catalog", "Create", null, null, new {@class="btn btn-success btn-sm"})</p>
+<p>@Html.ActionLink("Look up an catalog", "Search", null, null, new {@class="btn btn-info btn-sm"})</p>

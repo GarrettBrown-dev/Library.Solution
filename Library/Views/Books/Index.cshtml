@@ -12,7 +12,7 @@
   <ul>
     @foreach (Book book in Model)
     {
-      <li>@Html.ActionLink($"{book.BookName}", "Details", new { id = book.BookId })</li>
+      <li>@Html.ActionLink($"{book.BookName}", "Details", new { id = book.BookId }, new {@class="linkHelper"})</li>
     }
   </ul>
 }
@@ -20,7 +20,7 @@ else
 {
   <h3>No books have been added yet!</h3>
 }
+<br>
+<p>@Html.ActionLink("Add new book", "Create", null, null, new {@class="btn btn-success btn-sm"})</p>
 
-<p>@Html.ActionLink("Add new book", "Create")</p>
-
-<p>@Html.ActionLink("Home", "Index", "Home")</p>
+<p>@Html.ActionLink("Home", "Index", "Home", null, new {@class="btn btn-info btn-sm"})</p>

@@ -15,6 +15,7 @@
   @Html.LabelFor(model => model.CatalogName)
   @Html.EditorFor(model => model.CatalogName)
 
-  <input type="submit" value="Save" />
+  <input type="submit" value="Save" class="btn btn-success btn-sm" />
 }
-<h5>@Html.ActionLink("Back to catalogs", "Index")</h5>
+<br>
+<p>@Html.ActionLink("Cancel", "Details", null, new {id = Model.CatalogId }, new {@class="btn btn-info btn-sm"})</p>

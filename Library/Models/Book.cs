@@ -7,11 +7,28 @@ namespace Library.Models
     public Book()
     {
       this.JoinEntries = new HashSet<AuthorBookCatalog>();
+      this.BookCopies = new HashSet<BookCopy>();
     }
     public int BookId { get; set; }
     public string BookName { get; set; }
-    public int BookCount { get; set; }
+    public virtual ICollection<BookCopy> BookCopies { get; set; }
     public virtual ICollection<AuthorBookCatalog> JoinEntries { get; set; }
     public virtual ApplicationUser User { get; set; }
+
+    public static List<Book> Search(List<Book> allObject, string searchParam)
+    {
+      List<Book> matches = new List<Book> { };
+      if (searchParam != null)
+      {
+        foreach (Book x in allObject)
+        {
+          if (x.BookName.ToUpper().Contains(searchParam.ToUpper()))
+          {
+            matches.Add(x);
+          }
+        }
+      }
+      return matches;
+    }
   }
 }

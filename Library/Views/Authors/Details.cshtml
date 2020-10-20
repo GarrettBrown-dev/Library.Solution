@@ -23,7 +23,8 @@
         }
       </ul>
     }
-    <p>@Html.ActionLink("Back to authors", "Index")</p>
+    <br>
     <p>@Html.ActionLink("Add a Book", "AddBook", "Authors", new { id = Model.AuthorId } , new {@class="btn btn-success btn-sm"})</p>
-    <p>@Html.ActionLink("Edit Author", "Edit", new { id = Model.AuthorId })</p>
-    <p>@Html.ActionLink("Delete Author", "Delete", new { id = Model.AuthorId })</p>
+    <p>@Html.ActionLink("Edit Author", "Edit", new { id = Model.AuthorId }, new {@class="btn btn-success btn-sm"})</p>
+    <p>@Html.ActionLink("Delete Author", "Delete", new { id = Model.AuthorId }, new {@class="btn btn-danger btn-sm"})</p>
+    <p>@Html.ActionLink("See all authors", "Index", null, null, new {@class="btn btn-info btn-sm"})</p>
