@@ -24,7 +24,7 @@
       </ul>
     }
     <br>
-    @if (User.Identity.IsAuthenticated)
+    @if (User.Identity.Name == "admin@library.local")
     {
       <p>@Html.ActionLink("Add a Book", "AddBook", "Authors", new { id = Model.AuthorId } , new {@class="btn btn-success btn-sm"})</p>
       <p>@Html.ActionLink("Edit Author", "Edit", new { id = Model.AuthorId }, new {@class="btn btn-success btn-sm"})</p>

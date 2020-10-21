@@ -25,11 +25,13 @@ namespace Library.Controllers
       List<Book> model = _db.Books.ToList();
       return View(model);
     }
+
     [Authorize(Roles = "Administrator")]
     public ActionResult Create()
     {
       return View();
     }
+
     [Authorize(Roles = "Administrator")]
     [HttpPost]
     public ActionResult Create(Book book)
@@ -47,6 +49,8 @@ namespace Library.Controllers
         .FirstOrDefault(book => book.BookId == id);
       return View(thisBook);
     }
+
+    [Authorize(Roles = "Administrator")]
     public ActionResult Edit(int id)
     {
       var thisBook = _db.Books.FirstOrDefault(books => books.BookId == id);
@@ -54,6 +58,7 @@ namespace Library.Controllers
       return View(thisBook);
     }
 
+    [Authorize(Roles = "Administrator")]
     [HttpPost]
     public ActionResult Edit(Book book)
     {
@@ -61,12 +66,15 @@ namespace Library.Controllers
       _db.SaveChanges();
       return RedirectToAction("Details", new { id = book.BookId });
     }
+
+    [Authorize(Roles = "Administrator")]
     public ActionResult Delete(int id)
     {
       var thisBook = _db.Books.FirstOrDefault(books => books.BookId == id);
       return View(thisBook);
     }
 
+    [Authorize(Roles = "Administrator")]
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
@@ -75,6 +83,8 @@ namespace Library.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    [Authorize(Roles = "Administrator")]
     [HttpPost]
     public ActionResult DeleteAuthor(int joinId, int bookId)
     {
@@ -83,12 +93,16 @@ namespace Library.Controllers
       _db.SaveChanges();
       return RedirectToAction("Details", new { id = bookId });
     }
+
+    [Authorize(Roles = "Administrator")]
     public ActionResult AddAuthor(int id)
     {
       var thisBook = _db.Books.FirstOrDefault(books => books.BookId == id);
       ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "AuthorName");
       return View(thisBook);
     }
+
+    [Authorize(Roles = "Administrator")]
     [HttpPost]
     public ActionResult AddAuthor(Book book, int AuthorId)
     {
@@ -106,6 +120,8 @@ namespace Library.Controllers
       List<Book> model = Book.Search(searchList, search);
       return View(model);
     }
+
+    [Authorize(Roles = "Administrator")]
     [HttpPost]
     public ActionResult AddCopy(BookCopy bookCopy)
     {

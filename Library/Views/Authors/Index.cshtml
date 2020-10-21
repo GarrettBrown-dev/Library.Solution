@@ -23,7 +23,7 @@ else
 }
 
 <br>
-@if (User.Identity.IsAuthenticated)
+@if (User.Identity.Name == "admin@library.local")
 {
   <p>@Html.ActionLink("Add new author", "Create", null, null, new {@class="btn btn-success btn-sm"})</p>
 }

@@ -11,8 +11,8 @@
 <p>This catalog is categorized as: @Model.CatalogName.
 </p>
 
-<p>@Html.ActionLink("Back to list", "Index")</p>
-@if (User.Identity.IsAuthenticated)
+<p>@Html.ActionLink("See All Catalogs", "Index", null, null, new {@class="btn btn-info btn-sm"})</p>
+@if (User.Identity.Name == "admin@library.local")
 {
   <p>@Html.ActionLink("Edit Item", "Edit", new { id = Model.CatalogId })</p>
   <p>@Html.ActionLink("Delete Item", "Delete", new { id = Model.CatalogId })</p>

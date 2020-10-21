@@ -1,8 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Library.Models;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
+using System.Linq;
 
 namespace Library.Controllers
 {
@@ -21,11 +26,13 @@ namespace Library.Controllers
       return View(model);
     }
 
+    [Authorize(Roles = "Administrator")]
     public ActionResult Create()
     {
       return View();
     }
 
+    [Authorize(Roles = "Administrator")]
     [HttpPost]
     public ActionResult Create(Catalog catalog)
     {
@@ -43,12 +50,14 @@ namespace Library.Controllers
       return View(thisCatalog);
     }
 
+    [Authorize(Roles = "Administrator")]
     public ActionResult Edit(int id)
     {
       var thisCatalog = _db.Catalogs.FirstOrDefault(catalog => catalog.CatalogId == id);
       return View(thisCatalog);
     }
 
+    [Authorize(Roles = "Administrator")]
     [HttpPost]
     public ActionResult Edit(Catalog catalog)
     {
@@ -57,12 +66,14 @@ namespace Library.Controllers
       return RedirectToAction("Index");
     }
 
+    [Authorize(Roles = "Administrator")]
     public ActionResult Delete(int id)
     {
       var thisCatalog = _db.Catalogs.FirstOrDefault(catalog => catalog.CatalogId == id);
       return View(thisCatalog);
     }
 
+    [Authorize(Roles = "Administrator")]
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {

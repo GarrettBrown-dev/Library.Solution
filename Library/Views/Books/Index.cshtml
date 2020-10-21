@@ -21,7 +21,7 @@ else
   <h3>No books have been added yet!</h3>
 }
 <br>
-@if (User.Identity.IsAuthenticated)
+@if (User.Identity.Name == "admin@library.local")
 {
   <p>@Html.ActionLink("Add new book", "Create", null, null, new {@class="btn btn-success btn-sm"})</p>
 }

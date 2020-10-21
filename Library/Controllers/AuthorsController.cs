@@ -26,11 +26,13 @@ namespace Library.Controllers
       return View(model);
     }
 
+    [Authorize(Roles = "Administrator")]
     public ActionResult Create()
     {
       return View();
     }
 
+    [Authorize(Roles = "Administrator")]
     [HttpPost]
     public ActionResult Create(Author author)
     {
@@ -46,6 +48,8 @@ namespace Library.Controllers
         .FirstOrDefault(author => author.AuthorId == id);
       return View(thisAuthor);
     }
+
+    [Authorize(Roles = "Administrator")]
     public ActionResult Edit(int id)
     {
       var thisAuthor = _db.Authors.FirstOrDefault(authors => authors.AuthorId == id);
@@ -53,6 +57,7 @@ namespace Library.Controllers
       return View(thisAuthor);
     }
 
+    [Authorize(Roles = "Administrator")]
     [HttpPost]
     public ActionResult Edit(Author author)
     {
@@ -60,12 +65,15 @@ namespace Library.Controllers
       _db.SaveChanges();
       return RedirectToAction("Details", new { id = author.AuthorId });
     }
+
+    [Authorize(Roles = "Administrator")]
     public ActionResult Delete(int id)
     {
       var thisAuthor = _db.Authors.FirstOrDefault(authors => authors.AuthorId == id);
       return View(thisAuthor);
     }
 
+    [Authorize(Roles = "Administrator")]
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
@@ -74,6 +82,8 @@ namespace Library.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    [Authorize(Roles = "Administrator")]
     [HttpPost]
     public ActionResult DeleteBook(int joinId, int authorId)
     {
@@ -82,12 +92,16 @@ namespace Library.Controllers
       _db.SaveChanges();
       return RedirectToAction("Details", new { id = authorId });
     }
+
+    [Authorize(Roles = "Administrator")]
     public ActionResult AddBook(int id)
     {
       var thisAuthor = _db.Authors.FirstOrDefault(authors => authors.AuthorId == id);
       ViewBag.BookId = new SelectList(_db.Books, "BookId", "BookName");
       return View(thisAuthor);
     }
+
+    [Authorize(Roles = "Administrator")]
     [HttpPost]
     public ActionResult AddBook(Author author, int BookId)
     {
