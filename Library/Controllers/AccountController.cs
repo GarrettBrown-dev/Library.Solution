@@ -4,6 +4,7 @@ using Library.Models;
 using System.Threading.Tasks;
 using Library.ViewModels;
 using System.Security.Claims;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,10 @@ namespace Library.Controllers
 
     public ActionResult Index()
     {
+      List<Book> modelBook = _db.Books.ToList();
+      List<Checkout> modelCheckout = _db.Checkouts.Include(x => x.BookCopy).ThenInclude(x => x.Book).ToList();
+      ViewBag.Book = modelBook;
+      ViewBag.Checkout = modelCheckout;
       return View();
     }
 
@@ -82,7 +87,11 @@ namespace Library.Controllers
       if (BookId != 0)
       {
         Book userBook = _db.Books.FirstOrDefault(x => x.BookId == BookId);
-        _db.Checkouts.Add(new Checkout() { BookCopyId = userBook.GetBookCopyId(), Patron = patron });
+        int BookCopyId = userBook.GetBookCopyId();
+        if (_db.Checkouts.Where(x => x.BookCopyId == BookCopyId && x.Patron.PatronId == patron.PatronId).ToHashSet().Count == 0)
+        {
+          _db.Checkouts.Add(new Checkout() { BookCopyId = BookCopyId, Patron = patron });
+        }
       }
       _db.SaveChanges();
       return RedirectToAction("Index");
