@@ -9,8 +9,6 @@ namespace Library.Models
     {
       this.Checkouts = new HashSet<BookCopy>();
     }
-    public int PatronId { get; set; }
-    public int BookCopyId { get; set; }
     public ICollection<BookCopy> Checkouts { get; set; }
   }
 }

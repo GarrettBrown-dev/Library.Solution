@@ -5,5 +5,6 @@ namespace Library.Models
     public int BookCopyId { get; set; }
     public int BookId { get; set; }
     public virtual Book Book { get; set; }
+    public virtual Patron Patron { get; set; }
   }
 }

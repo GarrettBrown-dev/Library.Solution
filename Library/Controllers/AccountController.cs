@@ -24,13 +24,21 @@ namespace Library.Controllers
       _db = db;
     }
 
-    public ActionResult Index()
+    public async Task<ActionResult> Index()
     {
-      List<Book> modelBook = _db.Books.ToList();
-      List<Checkout> modelCheckout = _db.Checkouts.Include(x => x.BookCopy).ThenInclude(x => x.Book).ToList();
-      ViewBag.Book = modelBook;
-      ViewBag.Checkout = modelCheckout;
-      return View();
+      // List<Checkout> modelCheckout = _db.Checkouts.Include(x => x.BookCopy).ThenInclude(x => x.Book).ToList();
+      // ViewBag.Checkout = modelCheckout;
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      if (userId == null)
+      {
+        return View();
+      }
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      List<Checkout> model = _db.Checkouts.Where(entry => entry.Patron.Id == currentUser.Id).ToList();
+
+      // List<Checkout> model = user.Checkouts.ToList();
+      // _db.Checkouts.Include(x => x.BookCopy).ThenInclude(x => x.Book).FirstOrDefault(x => x.Patron.Id == user.Id);
+      return View(model);
     }
 
     public IActionResult Register()
@@ -81,20 +89,33 @@ namespace Library.Controllers
       ViewBag.BookId = new SelectList(_db.Books, "BookId", "BookName");
       return View();
     }
+
     [HttpPost]
-    public ActionResult CheckBook(Patron patron, int BookId)
+    public async Task<ActionResult> CheckBook(Checkout checkout, int BookId)
     {
-      if (BookId != 0)
-      {
-        Book userBook = _db.Books.FirstOrDefault(x => x.BookId == BookId);
-        int BookCopyId = userBook.GetBookCopyId();
-        if (_db.Checkouts.Where(x => x.BookCopyId == BookCopyId && x.Patron.PatronId == patron.PatronId).ToHashSet().Count == 0)
-        {
-          _db.Checkouts.Add(new Checkout() { BookCopyId = BookCopyId, Patron = patron });
-        }
-      }
+      // Book userBook = _db.Books.FirstOrDefault(x => x.BookId == BookId);
+      // int BookCopyId = userBook.GetBookCopyId();
+      // BookCopy checkout = _db.BookCopies.FirstOrDefault(x => x.BookCopyId == BookCopyId);
+
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      checkout.Patron = currentUser;
+      _db.Checkouts.Add(checkout);
       _db.SaveChanges();
       return RedirectToAction("Index");
+      // if (BookId != 0)
+      // {
+      //   _db.CategoryItem.Add(new CategoryItem() { CategoryId = CategoryId, ItemId = item.ItemId });
+      // }
+      // if (BookId != 0)
+      // {
+      //   Book userBook = _db.Books.FirstOrDefault(x => x.BookId == BookId);
+      //   int BookCopyId = userBook.GetBookCopyId();
+      //   if (_db.Checkouts.Where(x => x.BookCopyId == BookCopyId && x.Patron.Id == patron.Id).ToHashSet().Count == 0)
+      //   {
+      //     _db.Checkouts.Add(new Checkout() { BookCopyId = BookCopyId, Patron = patron });
+      //   }
+      // }
     }
   }
 }

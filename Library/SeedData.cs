@@ -38,6 +38,7 @@ namespace Library
     {
       var testAdmin = await userManager.Users
         .Where(x => x.UserName == "admin@library.local")
+        .Where(x => x.UserName == "admin@library.com")
         .SingleOrDefaultAsync();
 
       if (testAdmin != null) return;

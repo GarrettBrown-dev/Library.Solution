@@ -1,7 +1,7 @@
 @{
   Layout = "_Layout";
 }
-@model Library.Models.Checkout
+@model List<Library.Models.Checkout>
 @using System.Security.Claims
 
 <h2>Log into your Library account!</h2>
@@ -9,29 +9,30 @@
 @if (User.Identity.IsAuthenticated)
 {
   <p>Hello @User.Identity.Name!</p>
-  @* @if (@Model.Checkout.Count == 0)
-    {
-    <p>This page does not contain any authors</p>
-    }
-    else
-    { *@
-  <h4>Books checked out:</h4>
-  <ul>
-    @foreach (var checkout in ViewBag.Checkout)
-    {
-      <li>@checkout.BookCopy.Book.BookName</li>
-    }
-  </ul>
-  <br>
-  @using (Html.BeginForm("LogOff", "Account"))
+  @if (@Model.Count == 0)
   {
-    <p><input type="submit" class="btn btn-secondary btn-sm" value="Log out" /></p>
+    <p>This account does not have any books checked out.</p>
+    <p>@Html.ActionLink("Checkout Book", "CheckBook", null, null, new { @class = "btn btn-success btn-sm"})</p>
   }
-
-  <p>@Html.ActionLink("Checkout Book", "CheckBook", null, null, new { @class = "btn btn-success btn-sm"})</p>
+  else
+  {
+    <h4>Books checked out:</h4>
+    <ul>
+      @foreach (Checkout checkout in Model)
+      {
+        <li>@checkout.BookCopy.Book.BookName</li>
+      }
+    </ul>
+    <br>
+    @using (Html.BeginForm("LogOff", "Account"))
+    {
+      <p><input type="submit" class="btn btn-secondary btn-sm" value="Log out" /></p>
+    }
+    <p>@Html.ActionLink("Checkout Book", "CheckBook", null, null, new { @class = "btn btn-success btn-sm"})</p>
+  }
 }
 else
 {
-  <p>@Html.ActionLink("Register", "Register", null, null, new { @class="btn btn-success btn-sm"})</p>
-  <p>@Html.ActionLink("Log in", "Login", null, null, new { @class="btn btn-info btn-sm"})</p>
+  <p> @Html.ActionLink("Register", "Register", null, null, new { @class = "btn btn-success btn-sm" }) </p>
+  <p> @Html.ActionLink("Log in", "Login", null, null, new { @class = "btn btn-info btn-sm" }) </p>
 }

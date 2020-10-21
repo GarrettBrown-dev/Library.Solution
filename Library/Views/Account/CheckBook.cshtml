@@ -7,7 +7,7 @@
 <br>
 @using (Html.BeginForm())
 {
-  @Html.HiddenFor(model => model.PatronId)
+  @Html.HiddenFor(model => model.Id)
 
   @Html.Label("Select Book")
   @Html.DropDownList("BookId", null, "Please Select", htmlAttributes: new{required = "Please select a Book"})
