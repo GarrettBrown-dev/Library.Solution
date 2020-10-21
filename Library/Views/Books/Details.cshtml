@@ -23,7 +23,7 @@
 @if (User.Identity.IsAuthenticated)
 {
   <p>@Html.ActionLink("Edit Item", "Edit", new { id = Model.BookId }, new {@class="btn btn-success btn-sm"})</p>
-  <p>@Html.ActionLink("Add a Author", "AddAuthor", "Books", new { id = Model.BookId }, new {@class="btn btn-success btn-sm"})</p>
+  <p>@Html.ActionLink("Add an Author", "AddAuthor", "Books", new { id = Model.BookId }, new {@class="btn btn-success btn-sm"})</p>
   @using (Html.BeginForm("AddCopy", "Books"))
   {
     <p>@Html.HiddenFor(model => model.BookId)

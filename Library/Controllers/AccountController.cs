@@ -71,21 +71,22 @@ namespace Library.Controllers
       await _signInManager.SignOutAsync();
       return RedirectToAction("Index");
     }
-
     public ActionResult CheckBook()
     {
+      ViewBag.BookId = new SelectList(_db.Books, "BookId", "BookName");
       return View();
     }
-    // [HttpPost]
-    // public ActionResult CheckBook(Patron patron, int BookCopyId)
-    // {
-    //   if (BookCopyId != 0)
-    //   {
-    //     _db.Checkouts.Add(new Checkout() { BookCopyId = BookCopyId, PatronId = patron.PatronId });
-    //   }
-    //   _db.SaveChanges();
-    //   return RedirectToAction("Index");
-    // }
+    [HttpPost]
+    public ActionResult CheckBook(Patron patron, int BookId)
+    {
+      if (BookId != 0)
+      {
+        Book userBook = _db.Books.FirstOrDefault(x => x.BookId == BookId);
+        _db.Checkouts.Add(new Checkout() { BookCopyId = userBook.GetBookCopyId(), Patron = patron });
+      }
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
   }
 }
 

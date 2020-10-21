@@ -29,5 +29,10 @@ namespace Library.Models
       }
       return matches;
     }
+
+    public int GetBookCopyId()
+    {
+      return 1;
+    }
   }
 }

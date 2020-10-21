@@ -25,12 +25,12 @@ namespace Library.Controllers
       List<Book> model = _db.Books.ToList();
       return View(model);
     }
-
+    [Authorize(Roles = "Administrator")]
     public ActionResult Create()
     {
       return View();
     }
-
+    [Authorize(Roles = "Administrator")]
     [HttpPost]
     public ActionResult Create(Book book)
     {

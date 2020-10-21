@@ -70,3 +70,7 @@ body {
   color: rgb(96, 126, 226);
   font-family: Century Gothic, sans-serif;
 }
+
+.logout { 
+  float: right;
+}
