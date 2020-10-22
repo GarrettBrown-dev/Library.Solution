@@ -91,9 +91,12 @@ namespace Library.Controllers
     }
 
     [HttpPost]
-    public async Task<ActionResult> CheckBook(Checkout checkout, int BookId)
+    public async Task<ActionResult> CheckBook(int BookId)
     {
-      // Book userBook = _db.Books.FirstOrDefault(x => x.BookId == BookId);
+      Book userBook = _db.Books.FirstOrDefault(x => x.BookId == BookId);
+      BookCopy userCopy = _db.BookCopies.FirstOrDefault(x => x.Book == userBook);
+      Checkout checkout = new Checkout();
+      checkout.BookCopyId = userCopy.BookCopyId;
       // int BookCopyId = userBook.GetBookCopyId();
       // BookCopy checkout = _db.BookCopies.FirstOrDefault(x => x.BookCopyId == BookCopyId);
 

@@ -11,7 +11,6 @@ namespace Library.Models
     }
     public int BookId { get; set; }
     public string BookName { get; set; }
-    // public int BookCopyId { get; set; }
     public virtual ICollection<BookCopy> BookCopies { get; set; }
     public virtual ICollection<AuthorBookCatalog> JoinEntries { get; set; }
     public virtual Patron Patron { get; set; }
@@ -34,7 +33,7 @@ namespace Library.Models
     public int GetBookCopyId()
     {
 
-      return 3;
+      return 1;
     }
   }
 }
